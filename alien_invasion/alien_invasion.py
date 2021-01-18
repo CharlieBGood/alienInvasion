@@ -6,6 +6,7 @@ from ship import Ship
 import game_functions as gf
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 
 def run_game():
     
@@ -16,10 +17,11 @@ def run_game():
     pygame.display.set_caption("Alien Invasion - Charlie edition")
     
     # Create play button
-    play_button = Button(main_settings, screen, "Play")
+    play_button = Button(main_settings, screen, "Press Start")
     
-    # Create an instance to store game statistics.
+    # Create an instance to store game statistics and create a scoreboard.
     stats = GameStats(main_settings)
+    sb = Scoreboard(main_settings, screen, stats)
     
     # Make a Ship, a group of aliens and a gropu of bullets.
     ship = Ship(screen, main_settings)
@@ -38,10 +40,10 @@ def run_game():
             # Update ship position
             ship.update()
             # Update bullets
-            gf.update_bullets(main_settings, screen, ship, aliens, bullets)
+            gf.update_bullets(main_settings, screen, stats, sb, ship, aliens, bullets)
             # Update aliens
             gf.update_aliens(main_settings, stats, screen, ship, aliens, bullets)
         # Update screen - it paints the screen
-        gf.update_screen(main_settings, screen, stats, ship, aliens, bullets, play_button)
+        gf.update_screen(main_settings, screen, stats, sb, ship, aliens, bullets, play_button)
     
 run_game()
