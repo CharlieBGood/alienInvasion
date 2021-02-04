@@ -24,7 +24,7 @@ def run_game():
     sb = Scoreboard(main_settings, screen, stats)
     
     # Make a Ship, a group of aliens and a gropu of bullets.
-    ship = Ship(screen, main_settings)
+    ship = Ship(main_settings, screen)
     bullets = Group()
     aliens = Group()
     
@@ -35,14 +35,14 @@ def run_game():
     while True:
         
         # Check for the events happening 
-        gf.check_events(main_settings, screen, stats, play_button, ship,aliens, bullets)
+        gf.check_events(main_settings, screen, stats, sb, play_button, ship,aliens, bullets)
         if stats.game_active:
             # Update ship position
             ship.update()
             # Update bullets
             gf.update_bullets(main_settings, screen, stats, sb, ship, aliens, bullets)
             # Update aliens
-            gf.update_aliens(main_settings, stats, screen, ship, aliens, bullets)
+            gf.update_aliens(main_settings, screen, stats, sb, ship, aliens, bullets)
         # Update screen - it paints the screen
         gf.update_screen(main_settings, screen, stats, sb, ship, aliens, bullets, play_button)
     
